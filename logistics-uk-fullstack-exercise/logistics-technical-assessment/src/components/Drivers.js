@@ -1,68 +1,35 @@
 import React,{useState,useEffect} from 'react';
 
 function Drivers() {
-
-    const [drivers,setDrivers]=useState([]);
-
+    const [driverList,setDriverList]=useState([]);
     
     // Possibly populate this list from calendar input
     const calendarDates = ['2021-02-01', '2021-02-02', '2021-02-03', '2021-02-04', '2021-02-05', '2021-02-06', '2021-02-07']
     const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-    // get drivers from json
-    const getDrivers=()=>{
-        fetch('/data/drivers.json'
-        ,{
-          headers : { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          }
-        }
-        )
-          .then(function(response){
-            console.log(response)
-            return response.json();
-          })
-          .then(function(myJson) {
-            console.log(myJson);
-            setDrivers(myJson.data)
-          });
-      };
-      
-    const [driverList,setDriverList]=useState([]);
-    
-    const getDriversList=()=>{
-
-      const list = drivers.map((driver => {
-        const totalMinutes = driver.traces.reduce((total, trace) => {
-          return total + trace.activity.reduce((sum, activity) => sum + activity.duration, 0);
-        }, 0);
-
-        return {...driver, totalMinutes}
-      }));
-
-      setDriverList(list);
-    }
-
     useEffect(()=>{
-      getDrivers()
+      const getDrivers = async () => {
+        const response = await fetch('/data/drivers.json');
+        const json = await response.json();
+        const drivers2 = json.data
 
       // Map Drivers Json and calculate totalMinutes
-      const list = drivers.map((driver => {
+      const list = drivers2.map((driver => {
         const totalMinutes = driver.traces.reduce((total, trace) => {
           return total + trace.activity.reduce((sum, activity) => sum + activity.duration, 0);
         }, 0);
 
         // Highlight active days
         const activeDates = driver.traces.map(trace => trace.date)
-        
-
 
         return {...driver, totalMinutes, activeDates}
       }));
 
       setDriverList(list);
 
+      };
+
+      getDrivers();
     },[])
 
     return (
@@ -86,7 +53,7 @@ function Drivers() {
                     <td>{driver.forename} {driver.surname}</td>
                     <td>{driver.vehicleRegistration}</td>
                     <td style={{textAlign : 'right'}}>{driver.totalMinutes}</td>
-                    <td>"{driver.activeDates}"</td>
+                    <td>"a{driver.activeDates}"</td>
                   </tr>
                 ))}
                 </tbody>
