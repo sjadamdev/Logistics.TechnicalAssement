@@ -22,7 +22,15 @@ function Drivers() {
         // Highlight active days
         const activeDates = driver.traces.map(trace => trace.date)
 
-        return {...driver, totalMinutes, activeDates}
+        const activeDays = calendarDates.map(currentDate => {
+          const isActive = driver.traces.some(trace => trace.date === currentDate);
+
+          return isActive ? 1 : 0;
+        });
+          
+        console.log("driverid: " + driver.driverID + " activeDays: " + activeDays)
+
+        return {...driver, totalMinutes, activeDates, activeDays}
       }));
 
       setDriverList(list);
@@ -53,7 +61,13 @@ function Drivers() {
                     <td>{driver.forename} {driver.surname}</td>
                     <td>{driver.vehicleRegistration}</td>
                     <td style={{textAlign : 'right'}}>{driver.totalMinutes}</td>
-                    <td>"a{driver.activeDates}"</td>
+                    <td>"{driver.activeDates}"</td>
+                    {driver.activeDays.map((activeDay, index) => (
+                      <td key={index} style={{
+                        textAlign: 'center',
+                        backgroundColor: activeDay ? 'green' : 'white', // Set background color to green if active
+                      }}></td>
+                    ))}
                   </tr>
                 ))}
                 </tbody>
