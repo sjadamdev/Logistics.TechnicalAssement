@@ -4,13 +4,14 @@ function Drivers() {
 
     const [drivers,setDrivers]=useState([]);
     
+    // get drivers from json
     const getDrivers=()=>{
         fetch('/data/drivers.json'
         ,{
           headers : { 
             'Content-Type': 'application/json',
             'Accept': 'application/json'
-           }
+          }
         }
         )
           .then(function(response){
@@ -21,11 +22,39 @@ function Drivers() {
             console.log(myJson);
             setDrivers(myJson.data)
           });
-      }
+      };
       
-      useEffect(()=>{
-        getDrivers()
-      },[])
+    const [driverList,setDriverList]=useState([]);
+    
+    const getDriversList=()=>{
+      getDrivers()
+
+      const list = drivers.map((driver => {
+        const totalMinutes = driver.traces.reduce((total, trace) => {
+          return total + trace.activity.reduce((sum, activity) => sum + activity.duration, 0);
+        }, 0);
+
+        return {...driver, totalMinutes}
+      }));
+
+      setDriverList(list);
+    }
+
+    useEffect(()=>{
+      getDrivers()
+
+      // Map Drivers Json and calculate totalMinutes
+      const list = drivers.map((driver => {
+        const totalMinutes = driver.traces.reduce((total, trace) => {
+          return total + trace.activity.reduce((sum, activity) => sum + activity.duration, 0);
+        }, 0);
+
+        return {...driver, totalMinutes}
+      }));
+
+      setDriverList(list);
+
+    },[])
 
     return (
         <div style={{ backgroundColor: 'lightblue', color: 'white', padding: '15px', flex: 1, overflow: 'auto'}}>
@@ -35,13 +64,15 @@ function Drivers() {
                   <tr>
                     <th>Driver Name</th>
                     <th>Vehicle Reg</th>
+                    <th>Total Activity Duration</th>
                   </tr>
                 </thead>
                 <tbody>
-                {drivers.map((driver, index) => (
-                  <tr>
+                {driverList.map((driver, index) => (
+                  <tr key={index}>
                     <td>{driver.forename} {driver.surname}</td>
                     <td>{driver.vehicleRegistration}</td>
+                    <td>{driver.totalMinutes}</td>
                   </tr>
                 ))}
                 </tbody>
