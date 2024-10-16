@@ -1,10 +1,34 @@
 # Logistics.TechnicalAssement
 
+This repo contains the orignal Technical Assement files, including Exercise.docx, Wireframe.png, and logistics-uk-fullstack-exercise.zip
 
-Upon completion:
+The React Application is located in subfolder of this repository, please run following three commands to run the application:
 
-Please upload your deliverables (prototypes/source files/solution files, etc.) either to a public repository or zip the files and upload to an online storage account. Please email a link to the files to Peter Connor (pconnor@logistics.org.uk).
+cd .\logistics-uk-fullstack-exercise\logistics-technical-assessment
+npm install
+npm start
 
-Please do not include the node_modules folder with your final solution.
 
-The application should be able to be run from NPM commands.
+Application Key Requirements from Exercise.docx:
+1. Follow example Wireframe.png for page lay out
+2. Header Section:
+	* Display a header bar containing the Logistics UK logo.
+3. Sidebar Menu:
+	* Display a side menu with links from the menu.json data file.
+4. Main Content Area:
+	* The main content area should contain the driver listing.
+	* The driver data should come from the drivers.json file.
+	* Each driver should have a row displaying:
+		--Driver forename and surname
+		--Vehicle registration
+		--Total activity duration (sum of minutes from their activities for the week).
+		--A box for each day of the week (Mon-Sun) should be shown next to each driver:
+			If the driver has activities on that day, the box should be green.
+			If the driver has no activities for a day, the box should be white.
+
+Bonus Tasks Completed:
+* Add a search box to the page, and upon typing in the input field, the driver list should be filtered down based on matching forename, surname, or registration.
+
+Bonus Tasks Remaining:
+* Split the total activity time in the listing into totals groups by individual activity types (drive, rest etc...)
+* Add routing to the application and create holding pages for the menu items.
