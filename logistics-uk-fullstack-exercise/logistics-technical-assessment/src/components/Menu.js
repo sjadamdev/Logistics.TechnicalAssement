@@ -28,13 +28,13 @@ function Menu() {
       },[])
     
     return (
-            <nav style={{ backgroundColor: 'lightgreen', color: 'black', width: '200px'}}>
+            <nav style={{ backgroundColor: '#7d1614', width: '200px'}}>
                 <ul style={{ listStyleType: 'none', textAlign: 'left' }}>
                     {menuItems.map((item, index) => (
                         <li key={index} >
-                            <a href={item.url} style={{ color: 'black', textDecoration: 'none', cursor: 'pointer'}} 
+                            <a href={item.url} style={{ color: 'White', fontSize: '24px', textDecoration: 'none', cursor: 'pointer'}} 
                                 onMouseEnter={(e) => (e.target.style.color = 'lightgrey')} // Change text color on hover
-                                onMouseLeave={(e) => (e.target.style.color = 'black')}
+                                onMouseLeave={(e) => (e.target.style.color = 'White')}
                             >{item.title}</a>
                         </li>
                     ))}
