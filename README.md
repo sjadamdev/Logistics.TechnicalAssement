@@ -1,8 +1,8 @@
 # Logistics.TechnicalAssement
 
-This repo contains the orignal Technical Assement files, including Exercise.docx, Wireframe.png, and logistics-uk-fullstack-exercise.zip
+This repo contains the original Technical Assement files, including Exercise.docx, Wireframe.png, and logistics-uk-fullstack-exercise.zip
 
-The React Application is located in subfolder of this repository, please run following three commands to run the application:
+The React Application is located in subfolder of this repository and was built using Visual Studio Code, please run following three commands to run the application:
 
 cd .\logistics-uk-fullstack-exercise\logistics-technical-assessment
 npm install
