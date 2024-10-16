@@ -3,7 +3,8 @@ import './Drivers.css';
 
 function Drivers() {
     const [driverList,setDriverList]=useState([]);
-    
+    const [searchTerm, setSearchTerm] = useState('');
+
     // Possibly populate this list from calendar input
     const calendarDates = ['2021-02-01', '2021-02-02', '2021-02-03', '2021-02-04', '2021-02-05', '2021-02-06', '2021-02-07']
     const weekdays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -43,9 +44,21 @@ function Drivers() {
       getDrivers();
     },[])
 
+    const filteredDrivers = driverList.filter(driver =>
+      (driver.forename + ' ' + driver.surname).toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    
     return (
         <div className='Main'>
             <main className="main-content">
+            <input
+              className='search-box'
+              type="text"
+              placeholder="Search for Driver"
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+            />
+
               <table className='driver-table'>
                 <thead>
                   <tr>
@@ -58,7 +71,7 @@ function Drivers() {
                   </tr>
                 </thead>
                 <tbody>
-                {driverList.map((driver, index) => (
+                {filteredDrivers.map((driver, index) => (
                   <tr key={index}>
                     <td>{driver.forename} {driver.surname}</td>
                     <td>{driver.vehicleRegistration}</td>
