@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react';
+import { Link } from 'react-router-dom';
 
 function Menu() {
     
@@ -32,10 +33,10 @@ function Menu() {
                 <ul style={{ listStyleType: 'none', textAlign: 'left' }}>
                     {menuItems.map((item, index) => (
                         <li key={index} >
-                            <a href={item.url} style={{ color: 'White', fontSize: '24px', textDecoration: 'none', cursor: 'pointer'}} 
+                            <Link to={item.url} style={{ color: 'White', fontSize: '24px', textDecoration: 'none', cursor: 'pointer'}} 
                                 onMouseEnter={(e) => (e.target.style.color = 'lightgrey')} // Change text color on hover
                                 onMouseLeave={(e) => (e.target.style.color = 'White')}
-                            >{item.title}</a>
+                            >{item.title}</Link>
                         </li>
                     ))}
                 </ul>

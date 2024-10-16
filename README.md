@@ -28,7 +28,7 @@ Application Key Requirements from Exercise.docx:
 
 Bonus Tasks Completed:
 * Add a search box to the page, and upon typing in the input field, the driver list should be filtered down based on matching forename, surname, or registration.
+* Add routing to the application and create holding pages for the menu items.
 
 Bonus Tasks Remaining:
 * Split the total activity time in the listing into totals groups by individual activity types (drive, rest etc...)
-* Add routing to the application and create holding pages for the menu items.

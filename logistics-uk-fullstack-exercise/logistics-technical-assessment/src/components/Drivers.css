@@ -1,7 +1,6 @@
-.Main {
+.drivers-page {
     background-color: 'white'; 
     color: 'black'; 
-    padding: '15px';
     flex: 1;
     overflow: 'auto';
     text-align: left;

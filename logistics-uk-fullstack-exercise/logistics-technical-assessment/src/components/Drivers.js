@@ -50,8 +50,7 @@ function Drivers() {
     );
     
     return (
-        <div className='Main'>
-            <main className="main-content">
+        <div className='drivers-page'>
             <input
               className='search-box'
               type="text"
@@ -87,7 +86,6 @@ function Drivers() {
                 ))}
                 </tbody>
               </table>
-            </main>
         </div>
 
     )
