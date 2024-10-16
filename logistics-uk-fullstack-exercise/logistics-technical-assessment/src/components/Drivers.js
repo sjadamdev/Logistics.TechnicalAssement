@@ -45,7 +45,8 @@ function Drivers() {
     },[])
 
     const filteredDrivers = driverList.filter(driver =>
-      (driver.forename + ' ' + driver.surname).toLowerCase().includes(searchTerm.toLowerCase())
+      (driver.forename + ' ' + driver.surname).toLowerCase().includes(searchTerm.toLowerCase()) 
+      || driver.vehicleRegistration.toLowerCase().includes(searchTerm.toLowerCase()) 
     );
     
     return (
@@ -75,7 +76,7 @@ function Drivers() {
                   <tr key={index}>
                     <td>{driver.forename} {driver.surname}</td>
                     <td>{driver.vehicleRegistration}</td>
-                    <td style={{textAlign: 'right'}}>{driver.totalMinutes}</td>
+                    <td>{driver.totalMinutes}</td>
                     {driver.activeDays.map((activeDay, index) => (
                       <td key={index} className='day'>
                         <div className='day-box' 
