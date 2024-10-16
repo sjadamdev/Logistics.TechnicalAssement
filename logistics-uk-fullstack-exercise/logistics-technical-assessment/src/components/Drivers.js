@@ -1,57 +1,59 @@
 import React,{useState,useEffect} from 'react';
+import './Drivers.css';
 
 function Drivers() {
     const [driverList,setDriverList]=useState([]);
     
     // Possibly populate this list from calendar input
     const calendarDates = ['2021-02-01', '2021-02-02', '2021-02-03', '2021-02-04', '2021-02-05', '2021-02-06', '2021-02-07']
-    const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const weekdays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
     useEffect(()=>{
       const getDrivers = async () => {
         const response = await fetch('/data/drivers.json');
-        const json = await response.json();
-        const drivers2 = json.data
+        console.log(response)
+        const myJson = await response.json();
+        console.log(myJson);
+        const drivers2 = myJson.data
 
-      // Map Drivers Json and calculate totalMinutes
-      const list = drivers2.map((driver => {
-        const totalMinutes = driver.traces.reduce((total, trace) => {
-          return total + trace.activity.reduce((sum, activity) => sum + activity.duration, 0);
-        }, 0);
+        // Map Drivers Json
+        const list = drivers2.map((driver => {
 
-        // Highlight active days
-        const activeDates = driver.traces.map(trace => trace.date)
+          // calculate totalMinutes
+          const totalMinutes = driver.traces.reduce((total, trace) => {
+            return total + trace.activity.reduce((sum, activity) => sum + activity.duration, 0);
+          }, 0);
 
-        const activeDays = calendarDates.map(currentDate => {
-          const isActive = driver.traces.some(trace => trace.date === currentDate);
+          // Highlight active days
+          const activeDays = calendarDates.map(currentDate => {
+            const isActive = driver.traces.some(trace => trace.date === currentDate);
 
-          return isActive ? 1 : 0;
-        });
-          
-        console.log("driverid: " + driver.driverID + " activeDays: " + activeDays)
+            return isActive ? 1 : 0;
+          });
+            
+          console.log("driverid: " + driver.driverID + " totalMinutes: " + totalMinutes + " activeDays: " + activeDays)
 
-        return {...driver, totalMinutes, activeDates, activeDays}
-      }));
+          // return full driver object with the addtional totalMinutes and activeDays
+          return {...driver, totalMinutes, activeDays}
+        }));
 
-      setDriverList(list);
-
+        setDriverList(list);
       };
 
       getDrivers();
     },[])
 
     return (
-        <div style={{ backgroundColor: 'lightblue', color: 'white', padding: '15px', flex: 1, overflow: 'auto'}}>
+        <div className='Main'>
             <main className="main-content">
-              <table style={{ textAlign: 'left'}}>
+              <table className='driver-table'>
                 <thead>
                   <tr>
                     <th>Driver Name</th>
                     <th>Vehicle Reg</th>
                     <th>Total Activity Duration</th>
-                    <th>Active Dates</th>
                     {calendarDates.map((date, index) => (
-                      <th>{weekdays[new Date(date).getDay()]}</th> 
+                      <th className='day'>{weekdays[new Date(date).getDay()]}</th> 
                     ))}
                   </tr>
                 </thead>
@@ -60,13 +62,12 @@ function Drivers() {
                   <tr key={index}>
                     <td>{driver.forename} {driver.surname}</td>
                     <td>{driver.vehicleRegistration}</td>
-                    <td style={{textAlign : 'right'}}>{driver.totalMinutes}</td>
-                    <td>"{driver.activeDates}"</td>
+                    <td style={{textAlign: 'right'}}>{driver.totalMinutes}</td>
                     {driver.activeDays.map((activeDay, index) => (
-                      <td key={index} style={{
-                        textAlign: 'center',
-                        backgroundColor: activeDay ? 'green' : 'white', // Set background color to green if active
-                      }}></td>
+                      <td key={index} className='day'>
+                        <div className='day-box' 
+                          style={{ backgroundColor: activeDay ? 'green' : 'white'}} /* Set background color to green if activeDay */ ></div> 
+                      </td>
                     ))}
                   </tr>
                 ))}

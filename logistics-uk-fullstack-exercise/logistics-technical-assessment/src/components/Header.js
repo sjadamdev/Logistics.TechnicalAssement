@@ -3,7 +3,7 @@ import logo from '../assets/logo.png';
 function Header() {
     return (
         <header style={{
-            backgroundColor: 'grey',
+            backgroundColor: 'white',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-start',  // Align content to the left

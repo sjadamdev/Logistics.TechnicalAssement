@@ -22,6 +22,7 @@ function Menu() {
             setMenuItems(myJson.data)
           });
       }
+      
       useEffect(()=>{
         getMenuItems()
       },[])
